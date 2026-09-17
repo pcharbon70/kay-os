@@ -15,6 +15,10 @@ M0 Phase 1 is establishing the target, toolchain, virtual fixture, physical
 inventory procedure, and reproducible freestanding build baseline. No bootable
 Kay OS image exists yet.
 
+Section 1.2 now provides a non-bootable fixed-address ELF that qualifies the
+selected Zig/C/assembly build boundary. It is a toolchain fixture, not a kernel
+or firmware-loadable image.
+
 The initial virtual fixture is deliberately small:
 
 - Intel x86-64 with the QEMU `Nehalem-v1` CPU model;
@@ -36,8 +40,15 @@ whose historical repository name is not the operating-system name.
   inputs.
 - `scripts/m0/inventory-t7500.sh` captures a redacted, read-only physical-unit
   inventory when the lab machine becomes available.
+- `config/m0/build-closure.json` fixes the freestanding ELF, ABI, instruction,
+  failure, and reproducibility policy.
+- `scripts/m0/verify-build-closure.sh ABSOLUTE_EVIDENCE_DIRECTORY` builds two
+  clean absolute-path copies, audits both language directions and the assembly
+  entry, and runs the negative dependency cases.
+- `docs/m0/build-closure.md` explains the qualified boundary and its limits.
 
 The physical T7500 inventory is currently deferred by explicit user decision.
 Virtual experiments may proceed provisionally, but M0 Phase 1 cannot close
 until that evidence is collected and reviewed.
 
+Kay OS source is licensed under the Apache License, Version 2.0.

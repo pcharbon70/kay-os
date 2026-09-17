@@ -15,6 +15,10 @@ freestanding build qualification. It implements the decision portion of
 | Initial guest memory | 64 MiB | Accepted by user on 2026-09-17 |
 | Emulator acquisition | Linux Mint/Ubuntu distribution QEMU and SeaBIOS packages | Accepted by user on 2026-09-17; QEMU `1:8.2.2+ds-0ubuntu1.18` and SeaBIOS `1.16.3-2` installed |
 | Physical inventory | Defer collection while virtual work proceeds provisionally | Accepted by user on 2026-09-17; `m0-p01-inventory` and full phase gate remain open |
+| Section 1.2 fixture | Non-bootable fixed-address ELF at a synthetic 2 MiB base | Accepted by user on 2026-09-17 |
+| Build driver | `build.zig` plus validation scripts | Accepted by user on 2026-09-17 |
+| Native boundary | Bidirectional Zig/C ABI plus assembly entry; C compiled by `zig cc`; no libc | Accepted by user on 2026-09-17 |
+| Repository license | Apache License 2.0 | Accepted by user on 2026-09-17 |
 
 ## Selected virtual profile
 
@@ -34,6 +38,12 @@ implicit libc and host syscalls, keep FP/SIMD outside the initial execution
 contract, enumerate undefined helpers, and retain ABI/disassembly evidence.
 Experimental incremental compilation and the experimental self-hosted ELF
 linker are excluded from the acceptance profile.
+
+The Section 1.2 fixture is a static `ET_EXEC` image linked at `0x200000`. Its
+assembly entry supplies a private stack, calls Zig, Zig calls C, and C calls a
+fixed-signature Zig callback. C and Zig both assert the shared record layout.
+The fixture is deliberately not bootable and does not settle the Phase 2
+loader, image, or firmware handoff.
 
 ## Open inputs
 
