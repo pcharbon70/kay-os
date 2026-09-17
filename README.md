@@ -46,6 +46,12 @@ whose historical repository name is not the operating-system name.
   clean absolute-path copies, audits both language directions and the assembly
   entry, and runs the negative dependency cases.
 - `docs/m0/build-closure.md` explains the qualified boundary and its limits.
+- `config/m0/phase-01-cases.json` binds the virtual integration cases and
+  finite deadlines without treating physical inventory as a QEMU input.
+- `scripts/m0/verify-phase-01.sh ABSOLUTE_EVIDENCE_DIRECTORY` runs the complete
+  Phase 1 virtual gate and preserves its positive and negative observations.
+- `docs/m0/phase-01-integration.md` explains the gate, evidence layout and
+  physical-qualification boundary.
 
 The physical T7500 inventory is currently deferred by explicit user decision.
 It is a Phase 3/final-M0 physical-qualification input, not a prerequisite for

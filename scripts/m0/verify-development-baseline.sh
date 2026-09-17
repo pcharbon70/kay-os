@@ -11,6 +11,9 @@ readonly expected_seabios_sha256="4d597f68e06a0e28498e12e96e1f2ce64aee88a519685c
 readonly expected_machine="pc-q35-8.2"
 readonly expected_cpu="Nehalem-v1"
 readonly expected_bios="/usr/share/seabios/bios.bin"
+readonly zig_command="${KAY_ZIG:-zig}"
+readonly qemu_command="${KAY_QEMU:-qemu-system-x86_64}"
+readonly bios_path="${KAY_BIOS:-$expected_bios}"
 
 fail() {
   printf 'baseline verification failed: %s\n' "$*" >&2
@@ -25,24 +28,24 @@ package_version() {
   dpkg-query -W -f='${Version}' "$1" 2>/dev/null || return 1
 }
 
-require_command zig
-require_command qemu-system-x86_64
+require_command "$zig_command"
+require_command "$qemu_command"
 require_command dpkg-query
 require_command sha256sum
 require_command awk
 require_command grep
 
-actual_zig="$(zig version)"
+actual_zig="$("$zig_command" version)"
 [[ "$actual_zig" == "$expected_zig" ]] ||
   fail "Zig $actual_zig is active; expected $expected_zig"
-zig_executable="$(zig env | awk -F'"' '/[.]zig_exe =/{print $2; exit}')"
+zig_executable="$("$zig_command" env | awk -F'"' '/[.]zig_exe =/{print $2; exit}')"
 [[ -n "$zig_executable" && -x "$zig_executable" ]] ||
   fail "could not resolve the actual Zig executable"
 actual_zig_sha256="$(sha256sum "$zig_executable" | awk '{print $1}')"
 [[ "$actual_zig_sha256" == "$expected_zig_sha256" ]] ||
   fail "Zig hash $actual_zig_sha256 does not match $expected_zig_sha256"
 
-actual_lld="$(zig ld.lld --version)"
+actual_lld="$("$zig_command" ld.lld --version)"
 [[ "$actual_lld" == "$expected_lld"* ]] ||
   fail "linker $actual_lld does not match $expected_lld"
 
@@ -55,21 +58,22 @@ actual_seabios_package="$(package_version seabios)" ||
   fail "seabios package is not installed"
 [[ "$actual_seabios_package" == "$expected_seabios_package" ]] ||
   fail "seabios package $actual_seabios_package does not match $expected_seabios_package"
-[[ -r "$expected_bios" ]] || fail "SeaBIOS is not readable at $expected_bios"
+[[ "$bios_path" == "$expected_bios" ]] || fail "SeaBIOS path $bios_path does not match $expected_bios"
+[[ -r "$bios_path" ]] || fail "SeaBIOS is not readable at $bios_path"
 
-qemu_executable="$(command -v qemu-system-x86_64)"
+qemu_executable="$(command -v "$qemu_command")"
 actual_qemu_sha256="$(sha256sum "$qemu_executable" | awk '{print $1}')"
 [[ "$actual_qemu_sha256" == "$expected_qemu_sha256" ]] ||
   fail "QEMU hash $actual_qemu_sha256 does not match $expected_qemu_sha256"
 
-actual_seabios_sha256="$(sha256sum "$expected_bios" | awk '{print $1}')"
+actual_seabios_sha256="$(sha256sum "$bios_path" | awk '{print $1}')"
 [[ "$actual_seabios_sha256" == "$expected_seabios_sha256" ]] ||
   fail "SeaBIOS hash $actual_seabios_sha256 does not match $expected_seabios_sha256"
 
-machine_help="$(qemu-system-x86_64 -machine help)"
+machine_help="$("$qemu_command" -machine help)"
 grep -Fq "$expected_machine" <<<"$machine_help" ||
   fail "QEMU does not expose machine $expected_machine"
-cpu_help="$(qemu-system-x86_64 -cpu help)"
+cpu_help="$("$qemu_command" -cpu help)"
 grep -Fq "$expected_cpu" <<<"$cpu_help" ||
   fail "QEMU does not expose CPU $expected_cpu"
 
@@ -79,12 +83,12 @@ printf 'zig_path=%s\n' "$zig_executable"
 printf 'zig_sha256=%s\n' "$actual_zig_sha256"
 printf 'lld_version=%s\n' "$actual_lld"
 printf 'qemu_package_version=%s\n' "$actual_qemu_package"
-qemu_version="$(qemu-system-x86_64 --version)"
+qemu_version="$("$qemu_command" --version)"
 printf 'qemu_version=%s\n' "${qemu_version%%$'\n'*}"
-printf 'qemu_path=%s\n' "$(command -v qemu-system-x86_64)"
+printf 'qemu_path=%s\n' "$qemu_executable"
 printf 'qemu_sha256=%s\n' "$actual_qemu_sha256"
 printf 'qemu_machine=%s\n' "$expected_machine"
 printf 'qemu_cpu=%s\n' "$expected_cpu"
 printf 'seabios_package_version=%s\n' "$actual_seabios_package"
-printf 'seabios_path=%s\n' "$expected_bios"
+printf 'seabios_path=%s\n' "$bios_path"
 printf 'seabios_sha256=%s\n' "$actual_seabios_sha256"
