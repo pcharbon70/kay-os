@@ -77,6 +77,7 @@ clean absolute paths. The artifact SHA-256 was
 The separate audit ELF hashes differed, as expected, because their DWARF
 contained the two source paths; their symbol and ELF maps compared equal.
 
-The execution record is in `evidence/m0-p01-build-2026-09-17.md`. Physical
-T7500 inventory, phase integration, boot-image construction, QEMU boot, and an
-acceptance review remain open.
+The execution record is in `evidence/m0-p01-build-2026-09-17.md`. Phase 1
+virtual integration, boot-image construction, QEMU boot, and acceptance review
+remain open. Physical T7500 inventory is separately deferred to Phase 3 and
+does not gate virtual integration.

@@ -48,7 +48,9 @@ whose historical repository name is not the operating-system name.
 - `docs/m0/build-closure.md` explains the qualified boundary and its limits.
 
 The physical T7500 inventory is currently deferred by explicit user decision.
-Virtual experiments may proceed provisionally, but M0 Phase 1 cannot close
-until that evidence is collected and reviewed.
+It is a Phase 3/final-M0 physical-qualification input, not a prerequisite for
+the independently pinned QEMU fixture. M0 Phase 1 virtual integration and
+Phase 2 contract work may proceed without it; no such work qualifies the
+physical motherboard.
 
 Kay OS source is licensed under the Apache License, Version 2.0.

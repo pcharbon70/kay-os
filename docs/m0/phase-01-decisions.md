@@ -14,7 +14,7 @@ freestanding build qualification. It implements the decision portion of
 | Toolchain | Zig 0.16.0, LLVM backend and LLD path | Accepted by user on 2026-09-17; executable qualification pending |
 | Initial guest memory | 64 MiB | Accepted by user on 2026-09-17 |
 | Emulator acquisition | Linux Mint/Ubuntu distribution QEMU and SeaBIOS packages | Accepted by user on 2026-09-17; QEMU `1:8.2.2+ds-0ubuntu1.18` and SeaBIOS `1.16.3-2` installed |
-| Physical inventory | Defer collection while virtual work proceeds provisionally | Accepted by user on 2026-09-17; `m0-p01-inventory` and full phase gate remain open |
+| Physical inventory | Defer collection while virtual work proceeds | Accepted by user on 2026-09-17; moved to `m0-p03-inventory`, where it blocks final M0 and physical claims rather than Phase 1 virtual integration |
 | Section 1.2 fixture | Non-bootable fixed-address ELF at a synthetic 2 MiB base | Accepted by user on 2026-09-17 |
 | Build driver | `build.zig` plus validation scripts | Accepted by user on 2026-09-17 |
 | Native boundary | Bidirectional Zig/C ABI plus assembly entry; C compiled by `zig cc`; no libc | Accepted by user on 2026-09-17 |
@@ -48,7 +48,9 @@ loader, image, or firmware handoff.
 ## Open inputs
 
 - The physical T7500 CPU, topology, RAM, firmware, board, device, ACPI, and
-  serial/debug inventory has not been collected.
+  serial/debug inventory has not been collected. Phase 3 owns that independent
+  qualification input; virtual work must not infer it from q35 or product
+  literature.
 - The acceptance reviewer is unassigned.
 - The accepted compiler, linker, QEMU executable, and SeaBIOS image identities
   are pinned in the machine-readable baseline. Each execution record must
