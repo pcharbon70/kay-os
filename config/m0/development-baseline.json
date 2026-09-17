@@ -1,0 +1,50 @@
+{
+  "format_version": 1,
+  "profile_id": "kay-os-m0-x86-64",
+  "decision_date": "2026-09-17",
+  "status": "selected-inputs-pending-complete-qualification",
+  "implementation_repository": "https://github.com/pcharbon70/kay-os",
+  "toolchain": {
+    "language": "Zig",
+    "version": "0.16.0",
+    "compiler_sha256": "2317bbb91798556d9d0f38aabdac23db83f0979b25f767259ae474546724087c",
+    "backend": "llvm",
+    "linker": "lld",
+    "linker_version": "LLD 21.1.0",
+    "target": "x86_64-freestanding-none",
+    "cpu": "nehalem",
+    "incremental_compilation": false,
+    "experimental_self_hosted_elf_linker": false
+  },
+  "virtual_fixture": {
+    "qemu_executable": "qemu-system-x86_64",
+    "qemu_package": "qemu-system-x86",
+    "qemu_package_version": "1:8.2.2+ds-0ubuntu1.18",
+    "qemu_sha256": "8a35ccba41582fc6c38b9df85fc9e35fa1d42f414d2d7d8090ee9b2f5e7c0854",
+    "machine": "pc-q35-8.2",
+    "accelerator": "tcg",
+    "cpu_model": "Nehalem-v1",
+    "vcpus": 1,
+    "sockets": 1,
+    "cores": 1,
+    "threads": 1,
+    "memory_mib": 64,
+    "serial": "stdio",
+    "display": "none",
+    "network": "none",
+    "writable_guest_storage": false
+  },
+  "firmware": {
+    "family": "SeaBIOS",
+    "package": "seabios",
+    "package_version": "1.16.3-2",
+    "path": "/usr/share/seabios/bios.bin",
+    "sha256": "4d597f68e06a0e28498e12e96e1f2ce64aee88a519685c61da92eb775c95a445"
+  },
+  "physical_target": {
+    "model": "Dell Precision T7500",
+    "inventory_status": "deferred-by-user",
+    "inventory_evidence": null
+  },
+  "acceptance_reviewer": null
+}
