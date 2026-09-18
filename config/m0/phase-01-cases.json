@@ -1,0 +1,55 @@
+{
+  "format_version": 1,
+  "task_id": "m0-p01-integration",
+  "profile_id": "kay-os-m0-x86-64",
+  "scope": "virtual-input-and-build-integration",
+  "physical_inventory": {
+    "required": false,
+    "reason": "deferred to m0-p03-inventory; not a virtual fixture input"
+  },
+  "limits": {
+    "baseline_seconds": 30,
+    "build_closure_seconds": 180,
+    "qemu_rejection_seconds": 10,
+    "watchdog_probe_seconds": 1
+  },
+  "random_seed": null,
+  "cases": [
+    {
+      "id": "m0-p01-t01-baseline",
+      "expected": "pinned Zig, QEMU, machine, CPU and SeaBIOS identities resolve"
+    },
+    {
+      "id": "m0-p01-t02-clean-builds",
+      "expected": "two clean absolute-path builds and normalized maps agree"
+    },
+    {
+      "id": "m0-p01-n01-missing-qemu",
+      "expected": "missing pinned QEMU executable fails"
+    },
+    {
+      "id": "m0-p01-n02-missing-firmware",
+      "expected": "changed or missing SeaBIOS path fails"
+    },
+    {
+      "id": "m0-p01-n03-unavailable-machine",
+      "expected": "unavailable QEMU machine request fails"
+    },
+    {
+      "id": "m0-p01-n04-unavailable-cpu",
+      "expected": "unavailable QEMU CPU request fails"
+    },
+    {
+      "id": "m0-p01-n05-build-closure",
+      "expected": "undefined helper, host import and CPU option drift fail"
+    },
+    {
+      "id": "m0-p01-n06-watchdog",
+      "expected": "a command exceeding the declared deadline returns timeout status 124"
+    },
+    {
+      "id": "m0-p01-b01-physical-boundary",
+      "expected": "run reports physical inventory deferred and makes no T7500 qualification claim"
+    }
+  ]
+}

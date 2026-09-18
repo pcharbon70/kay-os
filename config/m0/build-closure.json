@@ -1,0 +1,57 @@
+{
+  "format_version": 1,
+  "task_id": "m0-p01-build",
+  "profile_id": "kay-os-m0-x86-64",
+  "fixture": {
+    "kind": "non-bootable-freestanding-qualification-elf",
+    "format": "elf64-x86-64",
+    "elf_type": "ET_EXEC",
+    "entry_symbol": "_start",
+    "load_base": "0x200000",
+    "target": "x86_64-freestanding-none",
+    "cpu": "nehalem",
+    "optimization": "ReleaseSmall",
+    "red_zone": false,
+    "pic": false,
+    "pie": false,
+    "libc": false,
+    "compiler_rt": false,
+    "fp_simd_contract": "disabled-and-disassembly-rejected",
+    "stack_bytes": 16384
+  },
+  "toolchain": {
+    "zig": "0.16.0",
+    "backend": "llvm",
+    "linker": "lld",
+    "c_compiler": "zig-cc"
+  },
+  "abi": {
+    "name": "kay-m0-qualification-v1",
+    "calling_convention": "x86-64-system-v-c",
+    "directions": [
+      "assembly-to-zig",
+      "zig-to-c",
+      "c-to-zig"
+    ],
+    "packet_size": 16,
+    "packet_alignment": 8,
+    "panic_symbol": "kay_panic",
+    "allocation": "not-permitted"
+  },
+  "negative_cases": [
+    "undefined-compiler-helper",
+    "host-syscall-import",
+    "cpu-option-drift"
+  ],
+  "reproducibility": {
+    "source_copies": 2,
+    "canonicalization": "Zig -fstrip acceptance target",
+    "accepted_artifact": "kay-m0-fixture.elf",
+    "required_equal_outputs": [
+      "sha256",
+      "symbol-map",
+      "section-and-program-header-map"
+    ],
+    "permitted_intermediate_difference": "absolute source paths in the separate unstripped audit ELF DWARF only"
+  }
+}

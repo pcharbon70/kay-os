@@ -1,0 +1,10 @@
+/.zig-cache/
+/zig-out/
+/build/
+/out/
+/evidence/local/
+*.o
+*.a
+*.elf
+*.map
+
