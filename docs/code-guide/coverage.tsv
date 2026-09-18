@@ -1,0 +1,12 @@
+# source-path	guide-path	role
+src/m0/abi.h	docs/code-guide/m0-build-and-abi.md	shared C/Zig ABI declarations and layout assertions
+src/m0/boundary.c	docs/code-guide/m0-build-and-abi.md	C-to-Zig callback loop
+src/m0/entry.S	docs/code-guide/m0-build-and-abi.md	assembly entry and terminal halt
+src/m0/fixture.zig	docs/code-guide/m0-build-and-abi.md	Zig ABI assertions, exports and fixture body
+build.zig	docs/code-guide/m0-build-and-abi.md	freestanding Zig/C/assembly build definition
+linker/x86_64-m0.ld	docs/code-guide/m0-build-and-abi.md	fixed ELF layout and qualification stack
+config/m0/build-closure.json	docs/code-guide/m0-build-and-abi.md	machine-readable qualification policy
+scripts/m0/build-fixture.sh	docs/code-guide/m0-build-and-abi.md	artifact build and inspection capture
+scripts/m0/verify-build-closure.sh	docs/code-guide/m0-build-and-abi.md	reproducibility, audit and negative cases
+tests/m0/negative/undefined-helper.c	docs/code-guide/m0-build-and-abi.md	missing compiler-helper rejection fixture
+tests/m0/negative/host-syscall.c	docs/code-guide/m0-build-and-abi.md	host syscall rejection fixture
