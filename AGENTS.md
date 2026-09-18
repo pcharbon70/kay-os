@@ -38,9 +38,41 @@ boot media.
   the Dell Precision T7500 motherboard.
 - Do not write to physical firmware or storage without explicit authorization.
 
+## Code Companion documentation
+
+The `docs/code-guide/` tree is the Kay OS Code Companion. It is part of the
+implementation contract, not optional after-the-fact prose. Author its source
+in Markdown and generate the review site as HTML/CSS with Material for MkDocs;
+do not hand-author generated HTML or commit the `site/` directory.
+
+For every meaningful implementation change:
+
+- update the code map and the affected module guide in the same change;
+- map every new file under `src/` in `docs/code-guide/coverage.tsv`;
+- map significant build, linker, test, configuration, or verification code
+  when it defines behavior readers must understand;
+- keep the guide's important-file list, execution flow, data structures,
+  ownership, privilege boundary, failure behavior, tests, limitations,
+  language concepts, and revision statement accurate;
+- explain why and invariants in source comments; keep broad teaching and
+  syntax explanations in the Code Companion;
+- use Mermaid for flows with several components or state transitions, and use
+  fenced, titled code blocks or checked snippets for source excerpts;
+- state explicitly what evidence demonstrates and what it does not; and
+- update `docs/code-guide/glossary.md` when a change introduces terminology a
+  reader without C, Zig, assembly, or kernel experience may not know.
+
+Start new module guides from `docs/code-guide/module-guide-template.md` and
+retain every required second-level heading. Pull requests use
+`.github/pull_request_template.md`, including its reader's guide and Code
+Companion checklist. Run `scripts/docs/verify-code-guide.sh` before handoff;
+the verifier checks required sections, source coverage, referenced paths,
+navigation, and a strict MkDocs build.
+
 ## Verification
 
 Run the narrowest relevant checks during development. Before handing off a
 section, run its complete test driver plus `git diff --check`, and record the
 tested revision, dirty state, tool versions, commands, results, and hashes.
-
+Changes to source or Code Companion material must also pass
+`scripts/docs/verify-code-guide.sh`.

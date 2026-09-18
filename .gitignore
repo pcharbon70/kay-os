@@ -3,8 +3,9 @@
 /build/
 /out/
 /evidence/local/
+/site/
+/.venv-docs/
 *.o
 *.a
 *.elf
 *.map
-

@@ -31,6 +31,27 @@ The governing research and plans remain in
 [pcharbon70/atom-os-research](https://github.com/pcharbon70/atom-os-research),
 whose historical repository name is not the operating-system name.
 
+## Follow the code
+
+The [Kay OS Code Companion](docs/code-guide/index.md) explains the code for
+readers who are not already C, Zig, assembly, or kernel developers. Its
+Markdown source builds into a searchable HTML/CSS site with highlighted code,
+Mermaid diagrams, navigation, and a project glossary.
+
+The first guided tour is [M0 build and ABI](docs/code-guide/m0-build-and-abi.md).
+To build and review the site locally:
+
+```sh
+python3 -m venv .venv-docs
+.venv-docs/bin/pip install -r requirements-docs.txt
+KAY_MKDOCS=.venv-docs/bin/mkdocs scripts/docs/verify-code-guide.sh
+KAY_MKDOCS=.venv-docs/bin/mkdocs scripts/docs/preview.sh
+```
+
+`scripts/docs/serve.sh` provides MkDocs live reload when the local Python
+installation supports its filesystem watcher. `preview.sh` performs a strict
+build and serves the generated static site without that optional dependency.
+
 ## M0 development inputs
 
 - `.tool-versions` pins Zig 0.16.0 for `asdf` users.
