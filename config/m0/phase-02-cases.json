@@ -1,0 +1,40 @@
+{
+  "format_version": 2,
+  "task_id": "m0-p02-fixtures",
+  "cases": [
+    {"id": "m0-p02-t01-valid-boot-snapshot", "kind": "positive", "runner": "zig"},
+    {"id": "m0-p02-t02-valid-static-image", "kind": "positive", "runner": "zig"},
+    {"id": "m0-p02-t03-bounded-authorized-interfaces", "kind": "positive", "runner": "zig"},
+    {"id": "m0-p02-t04-reproducible-higher-half-image", "kind": "positive", "runner": "contract-driver"},
+    {"id": "m0-p02-t05-authenticated-limine-release", "kind": "positive", "runner": "integration"},
+    {"id": "m0-p02-t06-deterministic-read-only-iso", "kind": "positive", "runner": "integration"},
+    {"id": "m0-p02-t07-phase-01-regression", "kind": "positive", "runner": "integration"},
+    {"id": "m0-p02-t08-emitted-elf-contract", "kind": "positive", "runner": "contract-driver"},
+    {"id": "m0-p02-n01-truncated-snapshot", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n02-overlapping-memory", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n03-arithmetic-overflow", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n04-invalid-entry", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n05-write-execute-segment", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n06-overlapping-virtual-segments", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n07-image-outside-kernel-reservation", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n08-oversized-console-buffer", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n09-missing-grant-cross-product", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n10-past-deadline", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n11-time-conversion-overflow", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n12-invalid-limine-signature", "kind": "negative", "runner": "integration"},
+    {"id": "m0-p02-n13-missing-iso-tool", "kind": "negative", "runner": "integration"},
+    {"id": "m0-p02-n14-overlapping-physical-segments", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n15-overlapping-file-segments", "kind": "negative", "runner": "zig"},
+    {"id": "m0-p02-n16-wrong-endpoint-and-caller", "kind": "negative", "runner": "zig"}
+  ],
+  "limits": {
+    "contract_test_seconds": 60,
+    "kernel_build_seconds": 180,
+    "boot_image_seconds": 240,
+    "phase_01_regression_seconds": 300,
+    "maximum_boot_snapshot_bytes": 4096,
+    "maximum_memory_records": 32,
+    "maximum_image_segments": 8,
+    "maximum_console_transfer_bytes": 256
+  }
+}

@@ -28,13 +28,14 @@ flowchart TD
     ABI --> Glossary[Glossary as needed]
     ABI --> Decisions[M0 Phase 1 decisions]
     ABI --> Evidence[M0 build and integration evidence]
-    ABI -. future dependency .-> Boot[Boot and handoff guide]
+    ABI --> Boot[Boot and interface contracts]
     Boot -. future dependency .-> Memory[Memory foundation guide]
     Memory -. future dependency .-> CLI[Serial CLI guide]
 ```
 
-Only the solid-path M0 build/ABI guide exists today. Dotted nodes indicate
-future reading paths, not implemented components.
+The solid path now covers the build/ABI baseline and the executable M0
+contracts. Dotted nodes indicate future reading paths, not implemented
+components.
 
 ## Required module-guide contract
 

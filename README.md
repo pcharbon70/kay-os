@@ -11,9 +11,10 @@ integrated recovery tests. AtomVM is not an implementation dependency.
 
 ## Current state
 
-M0 Phase 1 is establishing the target, toolchain, virtual fixture, physical
-inventory procedure, and reproducible freestanding build baseline. No bootable
-Kay OS image exists yet.
+M0 Phase 1 established the target, toolchain, virtual fixture, inventory
+boundary, and reproducible freestanding build baseline. Phase 2 is defining
+and exercising boot, image, console, time, and authority contracts. It now
+produces a static higher-half ELF, but no guest boot has been accepted yet.
 
 Section 1.2 now provides a non-bootable fixed-address ELF that qualifies the
 selected Zig/C/assembly build boundary. It is a toolchain fixture, not a kernel
@@ -39,6 +40,7 @@ Markdown source builds into a searchable HTML/CSS site with highlighted code,
 Mermaid diagrams, navigation, and a project glossary.
 
 The first guided tour is [M0 build and ABI](docs/code-guide/m0-build-and-abi.md).
+Continue with [M0 boot and interface contracts](docs/code-guide/m0-boot-and-interface-contracts.md).
 To build and review the site locally:
 
 ```sh
@@ -73,6 +75,15 @@ build and serves the generated static site without that optional dependency.
   Phase 1 virtual gate and preserves its positive and negative observations.
 - `docs/m0/phase-01-integration.md` explains the gate, evidence layout and
   physical-qualification boundary.
+- `config/m0/phase-02-contracts.json` freezes the selected loader, image, ABI,
+  console, clock, authority, and fatal-fault contracts.
+- `scripts/m0/verify-phase-02-contracts.sh ABSOLUTE_EVIDENCE_DIRECTORY` runs
+  bounded parser/authority cases and two clean higher-half image builds.
+- `scripts/m0/verify-limine-release.sh` authenticates the pinned Limine input;
+  `scripts/m0/build-boot-image.sh` creates the read-only BIOS ISO once
+  `xorriso` is available.
+- `scripts/m0/verify-phase-02.sh` is the complete signed-input integration
+  gate, including deterministic ISO builds and the Phase 1 regression suite.
 
 The physical T7500 inventory is currently deferred by explicit user decision.
 It is a Phase 3/final-M0 physical-qualification input, not a prerequisite for

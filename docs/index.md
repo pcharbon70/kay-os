@@ -24,8 +24,9 @@ does **not** yet demonstrate.
 
 1. Read the [Code Companion overview](code-guide/index.md).
 2. Follow the [M0 build and ABI](code-guide/m0-build-and-abi.md) tour.
-3. Use the [glossary](code-guide/glossary.md) whenever a term is unfamiliar.
-4. Consult the M0 engineering records for exact decisions and test evidence.
+3. Continue with [M0 boot and interface contracts](code-guide/m0-boot-and-interface-contracts.md).
+4. Use the [glossary](code-guide/glossary.md) whenever a term is unfamiliar.
+5. Consult the M0 engineering records for exact decisions and test evidence.
 
 ## How the site is produced
 

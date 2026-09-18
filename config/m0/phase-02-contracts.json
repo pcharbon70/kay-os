@@ -1,0 +1,106 @@
+{
+  "format_version": 1,
+  "task_id": "m0-p02-decisions",
+  "decision_date": "2026-09-18",
+  "status": "selected",
+  "boot": {
+    "loader": "Limine",
+    "release": "v12.9.0",
+    "protocol_base_revision": 6,
+    "protocol_header_revision": "da65184e91f80fcb397270121b1e2515a11e01ee",
+    "protocol_header_url": "https://raw.githubusercontent.com/limine-bootloader/limine-protocol/da65184e91f80fcb397270121b1e2515a11e01ee/include/limine.h",
+    "protocol_header_sha256": "0aadf2633c85d8cb145344c968add158aeb1deb68af567d55ba8431c492b6d4c",
+    "archive_url": "https://github.com/limine-bootloader/limine/releases/download/v12.9.0/limine-binary-12.9.0.tar.xz",
+    "archive_sha256": "9a738586bff5790bd8bfef4a4868a2939cba3f81f22f121306d668c97f1c85d8",
+    "signature_sha256": "c2ece24344e8b59350d8e7d9b70ce46b71f2c0cda3668096c14ff83f1f773e3d",
+    "signing_key_fingerprint": "05D29860D0A0668AAEFB9D691F3C021BECA23821",
+    "firmware_to_long_mode_owner": "limine",
+    "kernel_first_responsibility": "validate-and-normalize-bounded-snapshot",
+    "additional_processors": "not-started"
+  },
+  "snapshot": {
+    "wire_magic": "KYB0",
+    "wire_version": 1,
+    "maximum_bytes": 4096,
+    "maximum_memory_records": 32,
+    "kernel_reserved_bytes": 65536,
+    "ownership_after_validation": "kernel-copy",
+    "borrowed_loader_pointers_after_validation": false
+  },
+  "image": {
+    "format": "ELF64",
+    "type": "ET_EXEC",
+    "virtual_base": "0xffffffff80000000",
+    "physical_base": "0x00200000",
+    "maximum_load_segments": 8,
+    "expected_fixture_load_segments": 2,
+    "segment_alignment": 4096,
+    "physical_limit_mib": 64,
+    "stack_bytes": 16384,
+    "relocations": "none",
+    "dynamic_linking": false,
+    "write_execute_segments": false,
+    "bss_rule": "p_memsz-minus-p_filesz-is-zero-filled",
+    "entry_rule": "inside-executable-load-segment"
+  },
+  "native_abi": {
+    "base": "System V AMD64",
+    "integer_arguments_only": true,
+    "red_zone": false,
+    "fp_simd_state": "disabled-unowned",
+    "kernel_owned_stack": true,
+    "stack_alignment_bytes": 16
+  },
+  "user_entry": {
+    "mechanism": "dedicated-dpl3-int-gate",
+    "kernel_stack_source": "tss-rsp0",
+    "return": "iretq",
+    "implemented_in_m0": false
+  },
+  "console": {
+    "endpoint": 1,
+    "transport": "byte-stream",
+    "copying": "copy-in-copy-out",
+    "maximum_transfer_bytes": 256,
+    "authority": "separate-read-write-endpoint-grants",
+    "line_discipline_owner": "cli"
+  },
+  "clock": {
+    "endpoint": 2,
+    "representation": "u64-monotonic-nanoseconds",
+    "conversion": "checked",
+    "wait": "absolute-deadline",
+    "authority": "separate-read-wait-grants"
+  },
+  "fatal_fault": {
+    "diagnostic": "bounded-emergency-serial-record",
+    "terminal_action": "stable-halt"
+  },
+  "boot_media": {
+    "format": "iso9660",
+    "firmware_path": "bios",
+    "writable": false,
+    "deterministic": true,
+    "source_date_epoch": 1789704000
+  },
+  "trust": {
+    "trusted": ["build-host", "seabios", "limine", "kay-kernel"],
+    "validated": ["loader-snapshot", "native-image", "interface-requests"],
+    "untrusted": ["future-user-domain"],
+    "cli_grants": ["console-read", "console-write", "clock-read", "clock-wait"],
+    "cli_physical_memory_grant": false
+  },
+  "authority_contracts": [
+    {"operation": "console-read", "endpoint": 1, "grant": "console-read", "payer": "caller-budget", "owner": "kernel-console-service", "response": "byte-count-and-bytes"},
+    {"operation": "console-write", "endpoint": 1, "grant": "console-write", "payer": "caller-budget", "owner": "kernel-console-service", "response": "byte-count"},
+    {"operation": "clock-now", "endpoint": 2, "grant": "clock-read", "payer": "caller-budget", "owner": "kernel-clock-service", "response": "monotonic-nanoseconds"},
+    {"operation": "clock-wait-until", "endpoint": 2, "grant": "clock-wait", "payer": "caller-budget", "owner": "kernel-clock-service", "response": "wait-completion"}
+  ],
+  "result_codes": {
+    "ok": 0,
+    "denied": 1,
+    "invalid_endpoint": 2,
+    "invalid_length": 3,
+    "deadline_in_past": 4
+  }
+}

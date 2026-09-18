@@ -10,3 +10,18 @@ scripts/m0/build-fixture.sh	docs/code-guide/m0-build-and-abi.md	artifact build a
 scripts/m0/verify-build-closure.sh	docs/code-guide/m0-build-and-abi.md	reproducibility, audit and negative cases
 tests/m0/negative/undefined-helper.c	docs/code-guide/m0-build-and-abi.md	missing compiler-helper rejection fixture
 tests/m0/negative/host-syscall.c	docs/code-guide/m0-build-and-abi.md	host syscall rejection fixture
+src/m0/contracts.zig	docs/code-guide/m0-boot-and-interface-contracts.md	bounded handoff, image, authority and time validators
+src/m0/image_audit.zig	docs/code-guide/m0-boot-and-interface-contracts.md	emitted ELF parser and shared-contract audit
+src/m0/kernel.zig	docs/code-guide/m0-boot-and-interface-contracts.md	minimal higher-half kernel root and terminal panic
+src/m0/limine.zig	docs/code-guide/m0-boot-and-interface-contracts.md	pinned Limine discovery markers and base revision
+src/m0/policy_dump.zig	docs/code-guide/m0-boot-and-interface-contracts.md	machine-readable export of the compiled Zig authority policy
+linker/x86_64-m0-higher-half.ld	docs/code-guide/m0-boot-and-interface-contracts.md	static higher-half virtual and physical segment layout
+config/m0/phase-02-contracts.json	docs/code-guide/m0-boot-and-interface-contracts.md	accepted boot, ABI, interface and fault contract
+config/m0/phase-02-cases.json	docs/code-guide/m0-boot-and-interface-contracts.md	stable contract case IDs and limits
+config/m0/limine.conf	docs/code-guide/m0-boot-and-interface-contracts.md	read-only BIOS ISO boot entry
+config/m0/limine-release-signing-key.asc	docs/code-guide/m0-boot-and-interface-contracts.md	fingerprint-pinned Limine release verification key
+scripts/m0/verify-limine-release.sh	docs/code-guide/m0-boot-and-interface-contracts.md	Limine archive, fingerprint and signature verifier
+scripts/m0/build-boot-image.sh	docs/code-guide/m0-boot-and-interface-contracts.md	deterministic read-only BIOS ISO builder
+scripts/m0/verify-phase-02-contracts.sh	docs/code-guide/m0-boot-and-interface-contracts.md	contract tests, reproducible build and ELF audit driver
+scripts/m0/verify-phase-02.sh	docs/code-guide/m0-boot-and-interface-contracts.md	complete signed-input Phase 2 integration driver
+scripts/m0/check-phase-02-policy.py	docs/code-guide/m0-boot-and-interface-contracts.md	structural policy, bound and exact case-set reconciliation
