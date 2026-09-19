@@ -72,9 +72,11 @@ nav:
   - Code Companion:
       - Overview: code-guide/index.md
       - M0 build and ABI: code-guide/m0-build-and-abi.md
+      - M0 boot and interface contracts: code-guide/m0-boot-and-interface-contracts.md
       - Glossary: code-guide/glossary.md
       - Module guide template: code-guide/module-guide-template.md
   - M0 engineering records:
       - Phase 1 decisions: m0/phase-01-decisions.md
       - Build closure: m0/build-closure.md
       - Phase 1 integration: m0/phase-01-integration.md
+      - Phase 2 decisions: m0/phase-02-decisions.md

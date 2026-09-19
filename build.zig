@@ -10,13 +10,19 @@ pub fn build(b: *std.Build) void {
 
     const fixture = addFixture(b, target, "kay-m0-fixture", true);
     const audit_fixture = addFixture(b, target, "kay-m0-fixture-audit", false);
+    const boot_kernel = addBootKernel(b, target);
 
     b.installArtifact(fixture);
     b.installArtifact(audit_fixture);
+    const install_boot_kernel = b.addInstallArtifact(boot_kernel, .{});
+    b.getInstallStep().dependOn(&install_boot_kernel.step);
 
     const fixture_step = b.step("fixture", "Build the M0 freestanding qualification fixtures");
     fixture_step.dependOn(&fixture.step);
     fixture_step.dependOn(&audit_fixture.step);
+
+    const boot_kernel_step = b.step("boot-kernel", "Build the M0 static higher-half boot contract image");
+    boot_kernel_step.dependOn(&install_boot_kernel.step);
 }
 
 fn addFixture(
@@ -82,4 +88,46 @@ fn addFixture(
     fixture.setLinkerScript(b.path("linker/x86_64-m0.ld"));
 
     return fixture;
+}
+
+fn addBootKernel(
+    b: *std.Build,
+    target: std.Build.ResolvedTarget,
+) *std.Build.Step.Compile {
+    const root_module = b.createModule(.{
+        .root_source_file = b.path("src/m0/kernel.zig"),
+        .target = target,
+        .optimize = .ReleaseSmall,
+        .link_libc = false,
+        .single_threaded = true,
+        .strip = true,
+        .unwind_tables = .none,
+        .code_model = .kernel,
+        .stack_protector = false,
+        .stack_check = false,
+        .sanitize_c = .off,
+        .pic = false,
+        .red_zone = false,
+        .omit_frame_pointer = false,
+        .error_tracing = false,
+    });
+    root_module.addAssemblyFile(b.path("src/m0/entry.S"));
+
+    const kernel = b.addExecutable(.{
+        .name = "kay-m0-kernel",
+        .root_module = root_module,
+        .use_llvm = true,
+        .use_lld = true,
+    });
+    kernel.entry = .{ .symbol_name = "_start" };
+    kernel.pie = false;
+    kernel.link_gc_sections = false;
+    kernel.link_function_sections = true;
+    kernel.link_data_sections = true;
+    kernel.bundle_compiler_rt = false;
+    kernel.bundle_ubsan_rt = false;
+    kernel.build_id = .none;
+    kernel.link_z_defs = true;
+    kernel.setLinkerScript(b.path("linker/x86_64-m0-higher-half.ld"));
+    return kernel;
 }

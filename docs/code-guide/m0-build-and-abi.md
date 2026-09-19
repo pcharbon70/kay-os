@@ -105,6 +105,10 @@ Read the implementation in this order:
 | 10 | `tests/m0/negative/undefined-helper.c` | C | Forces an unavailable compiler helper to prove it is rejected. |
 | 11 | `tests/m0/negative/host-syscall.c` | C | Attempts a host-style `write` call to prove host imports are rejected. |
 
+Phase 2 extends `build.zig` with a separate `kay-m0-kernel` target. It preserves
+these Phase 1 fixtures and their linker script; the new higher-half layout is
+explained in the [boot and interface contract guide](m0-boot-and-interface-contracts.md).
+
 The older engineering record `docs/m0/build-closure.md` states the formal
 qualification result. This guide supplies the learning-oriented path through
 the same implementation.

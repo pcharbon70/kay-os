@@ -90,8 +90,18 @@ concept from the narrower profile currently accepted by Kay OS.
 
 **BSS**
 : Storage that must contain zeros when execution begins but does not need its
-  zero bytes stored in the executable. A future loader must establish this
-  condition; the Phase 1 fixture only describes it.
+zero bytes stored in the executable. A future loader must establish this
+condition; the Phase 1 fixture only describes it.
+
+**Higher-half kernel**
+: A kernel linked at virtual addresses in the upper part of the address space
+  while its bytes may be loaded at lower physical addresses. Kay's initial
+  contract uses virtual base `0xffffffff80000000` and physical base `0x200000`.
+
+**Program header**
+: An ELF record used for loading and execution. Kay admits a narrow static set
+  of page-aligned load segments; linker sections are not the runtime admission
+  boundary.
 
 ## Processor and kernel terms
 
@@ -108,7 +118,22 @@ concept from the narrower profile currently accepted by Kay OS.
 **Privilege level**
 : A processor-enforced authority level. Kernel code normally runs with more
   authority than user code. The M0 fixture has no demonstrated privilege
-  transition and must not be mistaken for one.
+transition and must not be mistaken for one.
+
+**Capability / grant**
+: An explicit authority to perform a bounded operation. In the initial model,
+  console read/write and clock read/wait are separate grants; none implies
+  access to physical memory.
+
+**Monotonic clock**
+: A time source that does not move backward when wall-clock settings change.
+  Kay expresses its initial value and absolute deadlines as unsigned 64-bit
+  nanoseconds.
+
+**Transactional validation**
+: Validation that publishes an accepted object only after every required check
+  succeeds. A malformed handoff or image therefore cannot leave a partially
+  trusted runnable descriptor.
 
 **TCG**
 : QEMU's software CPU translator. The initial virtual profile uses TCG rather
