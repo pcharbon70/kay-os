@@ -84,6 +84,9 @@ build and serves the generated static site without that optional dependency.
   `xorriso` is available.
 - `scripts/m0/verify-phase-02.sh` is the complete signed-input integration
   gate, including deterministic ISO builds and the Phase 1 regression suite.
+- `evidence/m0-p02-integration-2026-09-18.md` records the clean 24-case
+  Section 2.1 run, exact identities, independent review and untested guest and
+  physical boundaries, plus the user's 2026-09-19 proceed decision.
 
 The physical T7500 inventory is currently deferred by explicit user decision.
 It is a Phase 3/final-M0 physical-qualification input, not a prerequisite for

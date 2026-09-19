@@ -13,9 +13,11 @@ state.
 !!! important "Current status"
 
     The pure contract tests, compiled-policy reconciliation, shared-contract
-    ELF audit, signed Limine input, and deterministic ISO checks pass. The
-    final clean rerun after follow-up review is pending; guest execution
-    remains outside this phase's claim.
+    ELF audit, signed Limine input, and deterministic ISO checks passed on the
+    clean Section 2.1 commit `f85571e`. Independent follow-up review found no
+    remaining implementation blocker. The user/project owner accepted the
+    Phase 2 handoff on 2026-09-19. Guest execution remains outside this phase's
+    claim.
 
 ## Problem
 
@@ -216,8 +218,9 @@ validation.
 ## Revision and maintenance
 
 This guide describes the independently reviewed Phase 2 contract implementation
-as of 2026-09-18. The retained execution record names the exact tested commit.
-Reopen it
+tested at commit `f85571e2f2bb036c258fd596552731422cb41b38` on 2026-09-18.
+The retained execution record distinguishes that tested implementation from
+its later documentation commit. Reopen it
 when the Limine release/protocol, wire schema, image subset, bounds, ABI,
 interrupt mechanism, grants, clock units, fault action, linker layout, or
 verification cases change.
